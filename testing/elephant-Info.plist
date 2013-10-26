@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>Elephant</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIcons</key>
@@ -14,6 +14,8 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
+				<string>Icon@2x_120</string>
+				<string>Icon</string>
 				<string>Icon.png</string>
 				<string>Icon@2x.png</string>
 			</array>

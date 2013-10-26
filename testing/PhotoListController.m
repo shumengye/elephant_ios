@@ -6,17 +6,17 @@
 //  Copyright (c) 2013 Shumeng Ye. All rights reserved.
 //
 #import <Parse/Parse.h>
-#import "ViewController.h"
+#import "PhotoListController.h"
 #import "PhotoViewController.h"
 #import "SendPhotoViewController.h"
 #import "PhotoItem.h"
 #import "PhotoTableCell.h"
 
-@interface ViewController ()
+@interface PhotoListController ()
 
 @end
 
-@implementation ViewController
+@implementation PhotoListController
 
 @synthesize photoFeedTableView, navBar;
 
@@ -41,10 +41,11 @@
     PFUser *currentUser = [PFUser currentUser];
 
     if (currentUser) {
-        NSLog(@"View appeared");
+        NSLog(@"List view appeared");
         [self refreshPhotos:nil];
     } else {
         
+        /*
         // Create the log in view controller
         PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
         [logInViewController setDelegate:self]; // Set ourselves as the delegate
@@ -56,19 +57,19 @@
         // Assign our sign up controller to be displayed from the login controller
         [logInViewController setSignUpController:signUpViewController];
         
+        logInViewController.fields = PFLogInFieldsUsernameAndPassword
+        | PFLogInFieldsLogInButton
+        | PFLogInFieldsSignUpButton
+        | PFLogInFieldsPasswordForgotten;
+        
         
         // Present the log in view controller
         [self presentViewController:logInViewController animated:YES completion:NULL];
+         */
     }
 
 }
 
-// Sent to the delegate when a PFUser is logged in.
-- (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
-    [self dismissViewControllerAnimated:YES completion:NULL];
-    
-    [self refreshPhotos:nil];
-}
 
 - (IBAction)refreshPhotos:(id)sender {
     
@@ -79,7 +80,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             NSLog(@"Successfully retrieved %d photos.", objects.count);
-            
+        
             // Retrieve existing objectIDs in photo list
             NSMutableArray *existingObjectIDs = [NSMutableArray array];
             if (allImages.count > 0) {
@@ -246,7 +247,6 @@
         // Delegate is self
         imagePicker.delegate = self;
 
-                
         // Show image picker
         [self.navigationController presentViewController:imagePicker animated:NO completion:NULL];
     }

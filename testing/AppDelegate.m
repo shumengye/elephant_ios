@@ -19,8 +19,8 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     
-    UIImage *navBackgroundImage = [UIImage imageNamed:@"navbar"];
-    [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
+    //UIImage *navBackgroundImage = [UIImage imageNamed:@"navbar"];
+    //[[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
     
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                                            [UIColor colorWithRed:45/255.0 green:45/255.0 blue:45/255.0 alpha:1.0], UITextAttributeTextColor,
@@ -29,7 +29,7 @@
                                                            UITextAttributeTextShadowOffset,
                                                            [UIFont fontWithName:@"HelveticaNeue" size:18], UITextAttributeFont, nil]];
     
-    [[UILabel appearance] setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
+    //[[UILabel appearance] setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     
     return YES;
 }
