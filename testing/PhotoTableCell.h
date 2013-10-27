@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
-@interface PhotoTableCell : UITableViewCell
+@interface PhotoTableCell : PFTableViewCell
 
-@property (nonatomic, weak) IBOutlet UILabel *userNameLabel;
-@property (nonatomic, weak) IBOutlet UILabel *questionLabel;
-@property (nonatomic, weak) IBOutlet UIImageView *thumbImageView;
+@property (strong, nonatomic) IBOutlet UILabel *dateLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *questionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+
+@property (weak, nonatomic) IBOutlet PFImageView *thumbImageView;
 
 @end

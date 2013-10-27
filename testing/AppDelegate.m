@@ -16,21 +16,14 @@
     [Parse setApplicationId:@"squsUjhTdehGpFPumjW0KjxP7SPrsKsuYnRclVxI"
                   clientKey:@"cSbjuBchn4m1DnjKfqHW2HeRNDoe4TGJJG1IDP4Q"];
     
-    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    
-    
-    //UIImage *navBackgroundImage = [UIImage imageNamed:@"navbar"];
-    //[[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
-    
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor colorWithRed:45/255.0 green:45/255.0 blue:45/255.0 alpha:1.0], UITextAttributeTextColor,
-                                                           [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8],UITextAttributeTextShadowColor,
+                                                           [UIColor whiteColor], UITextAttributeTextColor,
+                                                           [UIColor whiteColor],UITextAttributeTextShadowColor,
                                                            [NSValue valueWithUIOffset:UIOffsetMake(0, 0)],
                                                            UITextAttributeTextShadowOffset,
                                                            [UIFont fontWithName:@"HelveticaNeue" size:18], UITextAttributeFont, nil]];
-    
+  
     //[[UILabel appearance] setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
-    
     return YES;
 }
 

@@ -7,19 +7,19 @@
 //
 #import <Parse/Parse.h>
 #import <UIKit/UIKit.h>
-#include <stdlib.h>
-#import "SendPhotoViewController.h"
-#import "PhotoTableCell.h"
 
-@interface PhotoListController : UIViewController <SecondDelegate, UITableViewDataSource, UITableViewDelegate> {
-   NSMutableArray *allImages;
+@interface PhotoListController : PFQueryTableViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
+
 }
 
-@property (weak, nonatomic) IBOutlet UITableView *photoFeedTableView;
-@property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
-
+//@property (weak, nonatomic) IBOutlet UITableView *photoFeedTableView;
+//@property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
+/*
 - (IBAction)takePhoto:(id)sender;
 - (IBAction)refreshPhotos:(id)sender;
+*/
+
+- (IBAction)takePhoto:(id)sender;
 
 @end
 
