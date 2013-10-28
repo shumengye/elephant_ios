@@ -11,18 +11,17 @@
 		7F558FF5181C8399000D3558 /* blur2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F558FF4181C8399000D3558 /* blur2.jpg */; };
 		7F558FF7181C83AC000D3558 /* blur@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F558FF6181C83AC000D3558 /* blur@2x.jpg */; };
 		7F558FF9181C83C5000D3558 /* blur.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F558FF8181C83C5000D3558 /* blur.jpg */; };
-		7F559018181CC3A1000D3558 /* MyImageHelperObj.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F559017181CC3A1000D3558 /* MyImageHelperObj.m */; };
 		7F559024181EA821000D3558 /* ic_action_reply@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F559023181EA821000D3558 /* ic_action_reply@2x.png */; };
 		7F559027181EA894000D3558 /* ic_action_down_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F559025181EA894000D3558 /* ic_action_down_arrow@2x.png */; };
 		7F559028181EA894000D3558 /* ic_action_up_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F559026181EA894000D3558 /* ic_action_up_arrow@2x.png */; };
 		7F55902A181EB9A4000D3558 /* ic_action_chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F559029181EB9A4000D3558 /* ic_action_chat@2x.png */; };
 		7F55902E181ED371000D3558 /* mask2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F55902D181ED371000D3558 /* mask2.png */; };
+		7F559031181ED63A000D3558 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F559030181ED63A000D3558 /* SignupViewController.m */; };
 		7FB9E00E181B12A900D828F1 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB9E00D181B12A900D828F1 /* Icon.png */; };
 		7FB9E011181B20CA00D828F1 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB9E010181B20CA00D828F1 /* LoginViewController.m */; };
 		7FB9E013181C023900D828F1 /* thumbmask.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB9E012181C023900D828F1 /* thumbmask.png */; };
 		7FB9E01D181C07CC00D828F1 /* elephant.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB9E01C181C07CC00D828F1 /* elephant.png */; };
 		7FB9E01F181C66E700D828F1 /* navbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB9E01E181C66E700D828F1 /* navbar.png */; };
-		BB011DB917E0902F00861FDF /* PhotoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BB011DB817E0902F00861FDF /* PhotoItem.m */; };
 		BB011DC317E3A7F900861FDF /* PhotoComment.m in Sources */ = {isa = PBXBuildFile; fileRef = BB011DC217E3A7F900861FDF /* PhotoComment.m */; };
 		BB011DC917E4A77200861FDF /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB011DC817E4A77200861FDF /* Icon@2x.png */; };
 		BB427C6C17E5CCBB0030575F /* PhotoTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB427C6B17E5CCBB0030575F /* PhotoTableCell.m */; };
@@ -58,13 +57,13 @@
 		7F558FF4181C8399000D3558 /* blur2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = blur2.jpg; sourceTree = "<group>"; };
 		7F558FF6181C83AC000D3558 /* blur@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "blur@2x.jpg"; sourceTree = "<group>"; };
 		7F558FF8181C83C5000D3558 /* blur.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = blur.jpg; sourceTree = "<group>"; };
-		7F559016181CC3A1000D3558 /* MyImageHelperObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyImageHelperObj.h; sourceTree = "<group>"; };
-		7F559017181CC3A1000D3558 /* MyImageHelperObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyImageHelperObj.m; sourceTree = "<group>"; };
 		7F559023181EA821000D3558 /* ic_action_reply@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_action_reply@2x.png"; sourceTree = "<group>"; };
 		7F559025181EA894000D3558 /* ic_action_down_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_action_down_arrow@2x.png"; sourceTree = "<group>"; };
 		7F559026181EA894000D3558 /* ic_action_up_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_action_up_arrow@2x.png"; sourceTree = "<group>"; };
 		7F559029181EB9A4000D3558 /* ic_action_chat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_action_chat@2x.png"; sourceTree = "<group>"; };
 		7F55902D181ED371000D3558 /* mask2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask2.png; sourceTree = "<group>"; };
+		7F55902F181ED63A000D3558 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
+		7F559030181ED63A000D3558 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
 		7FB9E00C181B128300D828F1 /* Icon@2x_120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x_120.png"; sourceTree = "<group>"; };
 		7FB9E00D181B12A900D828F1 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		7FB9E00F181B20CA00D828F1 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -72,8 +71,6 @@
 		7FB9E012181C023900D828F1 /* thumbmask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thumbmask.png; sourceTree = "<group>"; };
 		7FB9E01C181C07CC00D828F1 /* elephant.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = elephant.png; sourceTree = "<group>"; };
 		7FB9E01E181C66E700D828F1 /* navbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navbar.png; sourceTree = "<group>"; };
-		BB011DB717E0902F00861FDF /* PhotoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoItem.h; sourceTree = "<group>"; };
-		BB011DB817E0902F00861FDF /* PhotoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoItem.m; sourceTree = "<group>"; };
 		BB011DC117E3A7F900861FDF /* PhotoComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoComment.h; sourceTree = "<group>"; };
 		BB011DC217E3A7F900861FDF /* PhotoComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoComment.m; sourceTree = "<group>"; };
 		BB011DC817E4A77200861FDF /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
@@ -181,28 +178,26 @@
 		BBEEB0D117D29FE0009D2B3F /* Elephant */ = {
 			isa = PBXGroup;
 			children = (
-				BB011DB717E0902F00861FDF /* PhotoItem.h */,
-				BB011DB817E0902F00861FDF /* PhotoItem.m */,
-				BB011DC117E3A7F900861FDF /* PhotoComment.h */,
-				BB011DC217E3A7F900861FDF /* PhotoComment.m */,
 				BBEEB0DA17D29FE0009D2B3F /* AppDelegate.h */,
 				BBEEB0DB17D29FE0009D2B3F /* AppDelegate.m */,
 				BBEEB0E317D29FE0009D2B3F /* MainStoryboard.storyboard */,
 				7FB9E00F181B20CA00D828F1 /* LoginViewController.h */,
 				7FB9E010181B20CA00D828F1 /* LoginViewController.m */,
-				7F559016181CC3A1000D3558 /* MyImageHelperObj.h */,
-				7F559017181CC3A1000D3558 /* MyImageHelperObj.m */,
+				7F55902F181ED63A000D3558 /* SignupViewController.h */,
+				7F559030181ED63A000D3558 /* SignupViewController.m */,
 				BBEEB0E617D29FE0009D2B3F /* PhotoListController.h */,
 				BBEEB0E717D29FE0009D2B3F /* PhotoListController.m */,
 				BB427C6A17E5CCBB0030575F /* PhotoTableCell.h */,
 				BB427C6B17E5CCBB0030575F /* PhotoTableCell.m */,
-				BB427C6F17E762FD0030575F /* CommentTableCell.h */,
-				BB427C7017E762FD0030575F /* CommentTableCell.m */,
 				BBFB74C017DE2F26000872EB /* SendPhotoViewController.h */,
 				BBFB74C117DE2F26000872EB /* SendPhotoViewController.m */,
 				BBFB74C217DE2F27000872EB /* SendPhotoViewController.xib */,
 				BBFB74A417DC4148000872EB /* PhotoViewController.h */,
 				BBFB74A517DC4148000872EB /* PhotoViewController.m */,
+				BB427C6F17E762FD0030575F /* CommentTableCell.h */,
+				BB427C7017E762FD0030575F /* CommentTableCell.m */,
+				BB011DC117E3A7F900861FDF /* PhotoComment.h */,
+				BB011DC217E3A7F900861FDF /* PhotoComment.m */,
 				BBEEB0D217D29FE0009D2B3F /* Supporting Files */,
 			);
 			name = Elephant;
@@ -325,10 +320,9 @@
 				BBEEB0DC17D29FE0009D2B3F /* AppDelegate.m in Sources */,
 				BBEEB0E817D29FE0009D2B3F /* PhotoListController.m in Sources */,
 				BBFB74A717DC4148000872EB /* PhotoViewController.m in Sources */,
-				7F559018181CC3A1000D3558 /* MyImageHelperObj.m in Sources */,
+				7F559031181ED63A000D3558 /* SignupViewController.m in Sources */,
 				7FB9E011181B20CA00D828F1 /* LoginViewController.m in Sources */,
 				BBFB74C317DE2F27000872EB /* SendPhotoViewController.m in Sources */,
-				BB011DB917E0902F00861FDF /* PhotoItem.m in Sources */,
 				BB011DC317E3A7F900861FDF /* PhotoComment.m in Sources */,
 				BB427C6C17E5CCBB0030575F /* PhotoTableCell.m in Sources */,
 				BB427C7117E762FD0030575F /* CommentTableCell.m in Sources */,

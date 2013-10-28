@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PhotoItem.h"
 
 @interface PhotoViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
     

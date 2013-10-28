@@ -1,20 +1,19 @@
 //
-//  LoginViewController.m
+//  SignupViewController.m
 //  Elephant
 //
-//  Created by Shumeng Ye on 25/10/13.
+//  Created by Shumeng Ye on 28/10/13.
 //  Copyright (c) 2013 Shumeng Ye. All rights reserved.
 //
 
-#import "LoginViewController.h"
-#import "PhotoListController.h"
+#import "SignupViewController.h"
 #import <Parse/Parse.h>
 
-@interface LoginViewController ()
+@interface SignupViewController ()
 
 @end
 
-@implementation LoginViewController
+@implementation SignupViewController
 
 UITextField *activeField;
 
@@ -22,7 +21,7 @@ UITextField *activeField;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        // Custom initialization
     }
     return self;
 }
@@ -31,27 +30,13 @@ UITextField *activeField;
 {
     [super viewDidLoad];
     
-    PFUser *currentUser = [PFUser currentUser];
-    
-    // User already logged in, proceed to next view
-    if (currentUser)
-        [self onVerifiedUser];
-    
-    _username.delegate = self;
-    _password.delegate = self;
+    _usernameField.delegate = self;
+    _emailField.delegate = self;
+    _passwordField.delegate = self;
     
     [self registerForKeyboardNotifications];
     
-    [_loginMessage sizeToFit];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    
-    UIImage *navBackgroundImage = [UIImage imageNamed:@"navbar"];
-    [self.navigationController.navigationBar setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
-    
+    [_signupMessage sizeToFit];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,28 +45,45 @@ UITextField *activeField;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)onVerifiedUser {
-    [self performSegueWithIdentifier:@"onLogin" sender:self];
-}
-
-- (IBAction)loginUser:(id)sender {
+- (IBAction)signupNewUser:(id)sender {
     [self.view endEditing:YES];
     
-    NSString *username = self.username.text;
-    NSString *password = self.password.text;
+    PFUser *user = [PFUser user];
+    user.username = _usernameField.text;
+    user.email = _emailField.text;
+    user.password = _passwordField.text;
+    
+    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            NSLog(@"Sign up ok");
+            // Log in user after successful signup
+            [self loginUser:user.username withPassword:user.password];
+        } else {
+            _signupMessage.text = [error userInfo][@"error"];
+        }
+    }];
+}
+
+- (void)onVerifiedUser {
+    [self performSegueWithIdentifier:@"onSignUp" sender:self];
+}
+
+- (void)loginUser:(NSString *)username withPassword:(NSString *)password {
     
     [PFUser logInWithUsernameInBackground:username password:password
-        block:^(PFUser *user, NSError *error) {
-        if (user) {
-            // Login ok
-            [self onVerifiedUser];
-
-        } else {
-            // Show error
-            _loginMessage.text = [error userInfo][@"error"];
+                                    block:^(PFUser *user, NSError *error) {
+       if (user) {
+           NSLog(@"Login ok");
+         // Login ok
+         [self onVerifiedUser];
+                                            
+       } else {
+         // Show error
+         _signupMessage.text = [error userInfo][@"error"];
         }
-   }];
+     }];
 }
+
 
 // Keyboard notifications
 - (void)registerForKeyboardNotifications
@@ -100,11 +102,11 @@ UITextField *activeField;
     // Scroll so keyboard is not hiding fields
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-
+    
     CGRect bkgndRect = activeField.superview.frame;
     bkgndRect.size.height += kbSize.height;
     [activeField.superview setFrame:bkgndRect];
-    [_scrollView setContentOffset:CGPointMake(0.0, activeField.frame.origin.y-kbSize.height) animated:YES];
+    [_scrollView setContentOffset:CGPointMake(0.0, activeField.frame.origin.y-kbSize.height+80) animated:YES];
 }
 
 
@@ -117,10 +119,10 @@ UITextField *activeField;
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     // activeField is used to scroll the view when keyboard is visible
-    activeField = textField;
+    activeField = _emailField;
     
     // Reset error message
-    _loginMessage.text = @"";
+    _signupMessage.text = @"";
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -130,11 +132,13 @@ UITextField *activeField;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     // Go to next field or hide keyboard
-    if (theTextField == _password)
+    if (theTextField == _passwordField)
         [theTextField resignFirstResponder];
-    else if (theTextField == _username)
-        [_password becomeFirstResponder];
-
+    else if (theTextField == _emailField)
+        [_passwordField becomeFirstResponder];
+    else if (theTextField == _usernameField)
+        [_emailField becomeFirstResponder];
+    
     return YES;
 }
 

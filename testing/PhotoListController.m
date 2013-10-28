@@ -147,7 +147,7 @@
      cell.thumbImageView.layer.cornerRadius = 50;
      cell.thumbImageView.layer.masksToBounds = YES;
      
-     cell.questionLabel.text = [object[@"question"] capitalizedString];
+     cell.questionLabel.text = object[@"question"];
      cell.usernameLabel.text = [object[@"senderName"]  capitalizedString];
      
      NSDateFormatter* df = [[NSDateFormatter alloc]init];
