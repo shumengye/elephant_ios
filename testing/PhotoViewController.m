@@ -17,7 +17,7 @@
 @end
 
 @implementation PhotoViewController
-@synthesize photoImageView, maskImageView, photo;
+@synthesize photoId, photoQuestion, photoSenderName, commentNumberLabel, photoImageView, maskImageView;
 @synthesize commentSubView, photoUserLabel, questionLabel, commentFeedTableView, answerTextField, postAnswerView;
 @synthesize allComments;
 
@@ -40,28 +40,41 @@
     
     commentSubViewIsOpen = NO;
     
+    
     // Set up mask
     NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"mask2" ofType:@"png"];
     UIImage *mask = [[UIImage alloc] initWithContentsOfFile:imagePath];
     self.maskImageView.image = mask;
     
-    // Selected photo
-    self.photoImageView.image = [UIImage imageWithData:photo.imageData];
     
-    // Q&A subview
-    questionLabel.text = photo.question;
-    photoUserLabel.text = photo.senderName;
+    // Load image file
+    PFQuery *query = [PFQuery queryWithClassName:@"UserPhoto"];
+    [query whereKey:@"objectId" equalTo:self.photoId];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (object) {
+            
+            PFFile *photoFile = object[@"imageFile"];
+            [photoFile getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error) {
+                if (!error) {
+                    self.photoImageView.image = [UIImage imageWithData:imageData];
+                }
+            }];
+            
+        }
+    }];
+  
+    // Photo info and comments
+    questionLabel.text = self.photoQuestion;
+    [questionLabel sizeToFit];
     
-    // Comments
+    photoUserLabel.text = self.photoSenderName;
+    
     allComments= [[NSMutableArray alloc] init];
-    
     [self getComments];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.view sendSubviewToBack:self.maskImageView];
-    [self.view sendSubviewToBack:self.photoImageView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -148,48 +161,48 @@
     CGPoint location = [touch locationInView: [UIApplication sharedApplication].keyWindow];
     
     float loc2X = location.x - 20;
-    if (loc2X < 28)
-        loc2X = 28;
+    if (loc2X < 23)
+        loc2X = 23;
     if (loc2X > 287)
         loc2X = 287;
     
-    float loc2Y = location.y - 135;
-    if (loc2Y < 5)
-        loc2Y = 5;
-    if (loc2Y > 368)
-        loc2Y = 368;
+    float loc2Y = location.y - 80;
+    if (loc2Y < 60)
+        loc2Y = 60;
+    if (loc2Y > 430)
+        loc2Y = 430;
     
     CGPoint location2 = CGPointMake(loc2X, loc2Y);
     [self.maskImageView setCenter: location2];
     
-    NSLog(@"Touching: %@", NSStringFromCGPoint(location2));
+    //NSLog(@"Touching: %@", NSStringFromCGPoint(location2));
 }
 
 - (void)getComments {
     allComments = [[NSMutableArray alloc] init];;
     
     PFQuery *query = [PFQuery queryWithClassName:@"PhotoComment"];
-    [query whereKey:@"parent" equalTo:[PFObject objectWithoutDataWithClassName:@"UserPhoto" objectId:photo.ID]];
+    PFObject *parentPhoto = [PFObject objectWithoutDataWithClassName:@"UserPhoto" objectId:self.photoId];
+    [query whereKey:@"parent" equalTo:parentPhoto];
     
     [query orderByAscending:@"createdAt"];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            NSLog(@"Successfully retrieved %d comments.", objects.count);
+            // Show number of total comments
+            commentNumberLabel.text = [NSString stringWithFormat:@"%d", objects.count];
             
             for (PFObject *eachObject in objects){
-                
                 PFUser *user = (PFUser *)[eachObject objectForKey:@"user"];
-                PFObject *aPhoto = (PFObject *)[eachObject objectForKey:@"parent"];
+   
                 PhotoComment *newComment = [[PhotoComment alloc] initWithCommentID:eachObject.objectId commentText:[eachObject objectForKey:@"comment"]
                     commentSenderID:user.objectId
                     commentSenderName:[eachObject objectForKey:@"username"]
-                    commentPhotoID:aPhoto.objectId];
+                    commentPhotoID:self.photoId];
                
                 [allComments insertObject:newComment atIndex:0];
             }
         }
-        NSLog(@"Comments array %d", allComments.count);
         [self.commentFeedTableView reloadData];
     }];
 }
@@ -197,10 +210,16 @@
 - (void)postComment:(NSString *)comment byUser:(NSString *)userID byUserWithName:(NSString *)userName {
     PFObject *newComment = [PFObject objectWithClassName:@"PhotoComment"];
     
-    [newComment setObject:[PFObject objectWithoutDataWithClassName:@"UserPhoto" objectId:photo.ID]
-                   forKey:@"parent"];
+    //[newComment setObject:[PFObject objectWithoutDataWithClassName:@"UserPhoto" objectId:self.photoId] forKey:@"parent"];
     
-    [newComment setObject:[PFObject objectWithoutDataWithClassName:@"User" objectId:userID] forKey:@"user"];
+    // Add a relation between the Post with objectId "1zEcyElZ80" and the comment
+    //newComment[@"parent"] = [PFObject objectWithoutDataWithClassName:@"UserPhoto" objectId:self.photoId];
+    PFObject *parentPhoto = [PFObject objectWithoutDataWithClassName:@"UserPhoto" objectId:self.photoId];
+    PFRelation *relation = [newComment relationforKey:@"parent"];
+    [relation addObject:parentPhoto];
+    
+    PFUser *currentUser = [PFUser currentUser];
+    [newComment setObject:currentUser forKey:@"user"];
     
     [newComment setObject:comment forKey:@"comment"];
     [newComment setObject:userName forKey:@"username"];
@@ -234,7 +253,8 @@
     [UIView animateWithDuration:0.25 animations:^{
         postAnswerView.frame = frame;
     }];
-
+    
+    return TRUE;
 }
 
 -(BOOL)textFieldDidEndEditing:(UITextField*)textField {
@@ -244,6 +264,8 @@
     [UIView animateWithDuration:0.25 animations:^{
         postAnswerView.frame = frame;
     }];
+    
+    return TRUE;
 }
 
 

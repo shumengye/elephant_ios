@@ -15,15 +15,17 @@
 
 @property NSMutableArray *allComments;
 
-@property (nonatomic, retain) PhotoItem *photo;
+@property (nonatomic, retain) NSString *photoId;
+@property (nonatomic, retain) NSString *photoQuestion;
+@property (nonatomic, retain) NSString *photoSenderName;
 
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
-
 @property (weak, nonatomic) IBOutlet UIImageView *maskImageView;
 
 @property (weak, nonatomic) IBOutlet UIView *commentSubView;
 @property (weak, nonatomic) IBOutlet UILabel *questionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *photoUserLabel;
+@property (weak, nonatomic) IBOutlet UILabel *commentNumberLabel;
 
 @property (weak, nonatomic) IBOutlet UITextField *answerTextField;
 @property (weak, nonatomic) IBOutlet UITableView *commentFeedTableView;

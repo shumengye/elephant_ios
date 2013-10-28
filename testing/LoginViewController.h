@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *loginMessage;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIImageView *logo;
 
 - (IBAction)loginUser:(id)sender;
 

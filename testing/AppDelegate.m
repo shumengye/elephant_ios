@@ -22,6 +22,8 @@
                                                            [NSValue valueWithUIOffset:UIOffsetMake(0, 0)],
                                                            UITextAttributeTextShadowOffset,
                                                            [UIFont fontWithName:@"HelveticaNeue" size:18], UITextAttributeFont, nil]];
+    
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
   
     //[[UILabel appearance] setFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0]];
     return YES;

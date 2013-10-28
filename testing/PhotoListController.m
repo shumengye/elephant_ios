@@ -10,6 +10,8 @@
 #import "Parse/Parse.h"
 #import "PhotoListController.h"
 #import "PhotoTableCell.h"
+#import "SendPhotoViewController.h"
+#import "PhotoViewController.h"
 
 @implementation PhotoListController
 
@@ -127,9 +129,7 @@
  */
 
 
- // Override to customize the look of a cell representing an object. The default is to display
- // a UITableViewCellStyleDefault style cell with the label being the /Users/shumeng/Dropbox/iOS/Elephant/testing/PhotoListController.mtextKey in the object,
- // and the imageView being the imageKey in the object.
+// Tabel cell for elephant photo
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
      static NSString *CellIdentifier = @"photoItemCell";
      PhotoTableCell *cell;
@@ -139,10 +139,13 @@
          cell = [[PhotoTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
      }
  
-     // Configure the cell
+     // Photo thumbnail
      PFFile *thumbnail = object[@"imageThumb"];
      cell.thumbImageView.file = thumbnail;
      [cell.thumbImageView loadInBackground];
+     // Round corners
+     cell.thumbImageView.layer.cornerRadius = 50;
+     cell.thumbImageView.layer.masksToBounds = YES;
      
      cell.questionLabel.text = [object[@"question"] capitalizedString];
      cell.usernameLabel.text = [object[@"senderName"]  capitalizedString];
@@ -151,10 +154,31 @@
      [df setDateFormat:@"MM/dd/yyyy"];     
      cell.dateLabel.text = [df stringFromDate: object.createdAt];
      
+     cell.objectId.text = object.objectId;
+     
      [cell setBackgroundColor:[UIColor clearColor]];
      
      return cell;
  }
+
+
+// Segue for displaying detail view for photos
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showPhotoView"]) {
+        
+        PhotoViewController *pdvc = segue.destinationViewController;
+        
+        // Pass photo id to detail view controller
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        PhotoTableCell *selectedCell =  (PhotoTableCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        
+        // Set some photo variables
+        pdvc.photoId = selectedCell.objectId.text;
+        pdvc.photoQuestion = selectedCell.questionLabel.text;
+        pdvc.photoSenderName = selectedCell.usernameLabel.text;        
+    }
+    
+}
 
 
 /*
@@ -240,5 +264,93 @@
         [self.navigationController presentViewController:imagePicker animated:NO completion:NULL];
     }
 }
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    // Access the uncropped image from info dictionary
+    UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    
+    // Dismiss controller
+    [picker dismissViewControllerAnimated:NO completion:nil];
+    
+    // Resize image
+    UIGraphicsBeginImageContext(CGSizeMake(640, 960));
+    [image drawInRect: CGRectMake(0, 0, 640, 960)];
+    UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    // Show image picker
+    SendPhotoViewController *sendPhoto = [[SendPhotoViewController alloc] init];
+    sendPhoto.imageData = UIImageJPEGRepresentation(smallImage, 0.8);
+    sendPhoto.myDelegate = self;
+    [self.navigationController presentViewController:sendPhoto animated:YES completion:NULL];
+}
+
+- (void)sendPhotoViewControllerDismissed:(NSData *)imageData withQuestion:(NSString *)photoQuestion
+{
+    [self uploadImage:imageData withQuestion:photoQuestion];
+}
+
+- (UIImage *)createThumb:(NSData *)originalData {
+    UIImage *origImage = [UIImage imageWithData:originalData];
+    
+    CGRect rect = CGRectMake(270, 430, 100, 100);
+    
+    CGImageRef imageRef = CGImageCreateWithImageInRect(origImage.CGImage, rect);
+    UIImage *imgs = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    return imgs;
+}
+
+//  UIImage *thumb = [self maskImage:[UIImage imageNamed:@"elephant"] withMask:[UIImage imageNamed:@"heartmask.jpg"]];
+
+
+- (void)uploadImage:(NSData *)imageData withQuestion:(NSString *)photoQuestion {
+    PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:imageData];
+    
+    UIImage *thumb = [self createThumb:imageData];
+   
+    PFFile *imageThumb = [PFFile fileWithName:@"thumb.png" data:UIImagePNGRepresentation(thumb) ];
+    
+    // Save PFFile
+    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            
+            // Create a PFObject around a PFFile and associate it with the current user
+            PFObject *userPhoto = [PFObject objectWithClassName:@"UserPhoto"];
+            [userPhoto setObject:imageFile forKey:@"imageFile"];
+            [userPhoto setObject:imageThumb forKey:@"imageThumb"];
+            
+            // Set the access control list to current user for security purposes
+            PFACL *photoACL = [PFACL ACLWithUser:[PFUser currentUser]];
+            [photoACL setPublicReadAccess:YES];
+            userPhoto.ACL = photoACL;
+            
+            PFUser *user = [PFUser currentUser];
+            [userPhoto setObject:user forKey:@"sender"];
+            [userPhoto setObject:user.username forKey:@"senderName"];
+            [userPhoto setObject:photoQuestion forKey:@"question"];
+            
+            [userPhoto saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    //[self refreshPhotos:nil];
+                    NSLog(@"Upload ok");
+                }
+                else{
+                    // Log details of the failure
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                }
+            }];
+        }
+        else{
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    } progressBlock:^(int percentDone) {
+        
+    }];
+}
+
+
 
 @end

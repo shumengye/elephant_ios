@@ -7,8 +7,9 @@
 //
 #import <Parse/Parse.h>
 #import <UIKit/UIKit.h>
+#import "SendPhotoViewController.h"
 
-@interface PhotoListController : PFQueryTableViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate> {
+@interface PhotoListController : PFQueryTableViewController <SecondDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
 
 }
 

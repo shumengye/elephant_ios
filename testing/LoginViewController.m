@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "PhotoListController.h"
+#import "MyImageHelperObj.h"
 #import <Parse/Parse.h>
 
 @interface LoginViewController ()
@@ -40,7 +41,6 @@ UITextField *activeField;
     _username.delegate = self;
     _password.delegate = self;
     [self registerForKeyboardNotifications];
-	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning

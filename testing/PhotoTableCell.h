@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *questionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *objectId;
 
 @property (weak, nonatomic) IBOutlet PFImageView *thumbImageView;
 
