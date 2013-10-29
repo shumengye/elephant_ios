@@ -13,12 +13,7 @@
 
 }
 
-//@property (weak, nonatomic) IBOutlet UITableView *photoFeedTableView;
-//@property (weak, nonatomic) IBOutlet UINavigationItem *navBar;
-/*
-- (IBAction)takePhoto:(id)sender;
-- (IBAction)refreshPhotos:(id)sender;
-*/
+- (IBAction)logoutUser:(id)sender;
 
 - (IBAction)takePhoto:(id)sender;
 

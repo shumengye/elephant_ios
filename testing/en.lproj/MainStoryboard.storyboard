@@ -78,8 +78,11 @@
                                 <action selector="takePhoto:" destination="Fl0-Qv-zKV" id="VXV-z5-Abz"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Menu" id="JMQ-ei-jrr">
+                        <barButtonItem key="rightBarButtonItem" title="Log out" id="JMQ-ei-jrr">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="logoutUser:" destination="Fl0-Qv-zKV" id="dw1-L6-nWC"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>

@@ -71,6 +71,9 @@ UITextField *activeField;
     NSString *username = self.username.text;
     NSString *password = self.password.text;
     
+    self.username.text = @"";
+    self.password.text = @"";
+    
     [PFUser logInWithUsernameInBackground:username password:password
         block:^(PFUser *user, NSError *error) {
         if (user) {
