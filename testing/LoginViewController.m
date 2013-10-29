@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "PhotoListController.h"
 #import <Parse/Parse.h>
+#import <UIKit/UIKit.h>
 
 @interface LoginViewController ()
 
@@ -81,6 +82,21 @@ UITextField *activeField;
             _loginMessage.text = [error userInfo][@"error"];
         }
    }];
+}
+
+// Segue for displaying detail view for photos
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showSignUp"] || [segue.identifier isEqualToString:@"showResetPassword"]) {
+        
+        UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc]
+                                              initWithTitle:@"Login"
+                                              style:UIBarButtonItemStyleBordered
+                                              target:nil
+                                              action:nil];
+        
+        self.navigationItem.backBarButtonItem = backBarButtonItem;
+    }
+    
 }
 
 // Keyboard notifications
