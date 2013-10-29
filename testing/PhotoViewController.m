@@ -35,17 +35,7 @@
 {
     [super viewDidLoad];
     
-    // Hide navigation bar
-    //[self.navigationController setNavigationBarHidden:YES];
-    
     commentSubViewIsOpen = NO;
-    
-    
-    // Set up mask
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"mask2" ofType:@"png"];
-    UIImage *mask = [[UIImage alloc] initWithContentsOfFile:imagePath];
-    self.maskImageView.image = mask;
-    
     
     // Load image file
     PFQuery *query = [PFQuery queryWithClassName:@"UserPhoto"];
@@ -59,7 +49,6 @@
                     self.photoImageView.image = [UIImage imageWithData:imageData];
                 }
             }];
-            
         }
     }];
   
@@ -257,15 +246,13 @@
     return TRUE;
 }
 
--(BOOL)textFieldDidEndEditing:(UITextField*)textField {
+-(void)textFieldDidEndEditing:(UITextField*)textField {
     CGRect frame = postAnswerView.frame;
     frame.origin.y = frame.origin.y + 210;
     
     [UIView animateWithDuration:0.25 animations:^{
         postAnswerView.frame = frame;
     }];
-    
-    return TRUE;
 }
 
 

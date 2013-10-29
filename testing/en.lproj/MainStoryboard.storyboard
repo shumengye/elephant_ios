@@ -75,7 +75,7 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="camera" id="fha-EQ-z6f">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <action selector="takePhoto:" destination="Fl0-Qv-zKV" id="VXV-z5-Abz"/>
+                                <segue destination="lY3-ZL-2Jj" kind="modal" identifier="showCamera" id="f0c-50-RYe"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Log out" id="JMQ-ei-jrr">
@@ -86,10 +86,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="fXg-JH-NSE" kind="push" identifier="showSendPhoto" id="mq3-Ie-M37"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FIT-dw-xgD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-111" y="93"/>
+            <point key="canvasLocation" x="825" y="121"/>
         </scene>
         <!--Photo View Controller-->
         <scene sceneID="PUB-1O-zyp">
@@ -102,7 +105,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="fhl-H2-uoP">
                                 <rect key="frame" x="0.0" y="63" width="320" height="427"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" highlighted="YES" id="fBb-dA-joq">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="mask2.png" highlighted="YES" id="fBb-dA-joq">
                                 <rect key="frame" x="-160" y="-173" width="640" height="900"/>
                             </imageView>
                             <view contentMode="scaleToFill" id="XWa-23-5Hd">
@@ -221,7 +224,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="360" y="93"/>
+            <point key="canvasLocation" x="1460" y="121"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IMs-zT-xu1">
@@ -239,7 +242,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yry-wL-caX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1129" y="105"/>
+            <point key="canvasLocation" x="-389" y="121"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="wjh-Jf-Oc7">
@@ -338,7 +341,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O5b-ca-gcr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-605" y="105"/>
+            <point key="canvasLocation" x="215" y="121"/>
         </scene>
         <!--Password View Controller-->
         <scene sceneID="zC7-21-sBY">
@@ -406,7 +409,78 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kHJ-fc-bj9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-606" y="939"/>
+            <point key="canvasLocation" x="226" y="959"/>
+        </scene>
+        <!--Image Picker Controller-->
+        <scene sceneID="oZI-m1-153">
+            <objects>
+                <viewController id="lY3-ZL-2Jj" customClass="UIImagePickerController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b0k-kH-u2G">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="m2l-v5-Dc6"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q8l-sx-YPs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="834" y="-709"/>
+        </scene>
+        <!--Send Photo View Controller-->
+        <scene sceneID="lEF-PW-yO1">
+            <objects>
+                <viewController id="fXg-JH-NSE" customClass="SendPhotoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="q1t-tJ-xiD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="lkr-bE-bHe">
+                                <rect key="frame" x="0.0" y="63" width="320" height="427"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mask2.png" id="vqX-wT-8yj">
+                                <rect key="frame" x="-163" y="-170" width="640" height="900"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" id="o0C-7H-843">
+                                <rect key="frame" x="0.0" y="489" width="320" height="145"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add question to photo" minimumFontSize="17" id="gwl-qB-xqc">
+                                        <rect key="frame" x="20" y="20" width="231" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gjj-yo-Zag">
+                                        <rect key="frame" x="259" y="20" width="41" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="Send">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="postPhoto:" destination="fXg-JH-NSE" eventType="touchUpInside" id="eR7-0m-ou9"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.01176470588" green="0.53333333329999999" blue="0.80392156859999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="3U7-IS-E9D"/>
+                    <connections>
+                        <outlet property="photoImage" destination="lkr-bE-bHe" id="t1p-Fh-ecP"/>
+                        <outlet property="photoMask" destination="vqX-wT-8yj" id="Zsp-J7-F8y"/>
+                        <outlet property="postQuestionView" destination="o0C-7H-843" id="R1n-Bj-yFc"/>
+                        <outlet property="questionTextField" destination="gwl-qB-xqc" id="ffx-nR-NxS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g8J-iG-J47" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1332" y="-710"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="Arz-NG-I8F">
@@ -489,14 +563,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SVf-B5-wb5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-605" y="-758"/>
+            <point key="canvasLocation" x="215" y="-714"/>
         </scene>
     </scenes>
     <resources>
         <image name="blur.jpg" width="320" height="568"/>
+        <image name="blur.jpg" width="320" height="568"/>
+        <image name="blur.jpg" width="320" height="568"/>
         <image name="elephant.png" width="576" height="576"/>
         <image name="ic_action_chat.png" width="32" height="32"/>
         <image name="ic_action_reply.png" width="32" height="32"/>
+        <image name="mask2.png" width="960" height="1080"/>
+        <image name="mask2.png" width="960" height="1080"/>
     </resources>
     <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -505,6 +583,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="gja-7h-Y3j"/>
+        <segue reference="D7Z-fy-hvd"/>
     </inferredMetricsTieBreakers>
 </document>

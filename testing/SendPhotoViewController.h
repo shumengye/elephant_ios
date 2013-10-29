@@ -18,8 +18,13 @@
 
 @property (nonatomic, assign) id<SecondDelegate> myDelegate;
 @property (nonatomic, retain) NSData *imageData;
-@property (weak, nonatomic) IBOutlet UITextField *questionTextField;
 @property (copy, nonatomic) NSString *photoQuestion;
+@property (weak, nonatomic) IBOutlet UIView *postQuestionView;
+
+@property (weak, nonatomic) IBOutlet UITextField *questionTextField;
+@property (weak, nonatomic) IBOutlet UIImageView *photoImage;
+@property (weak, nonatomic) IBOutlet UIImageView *photoMask;
+
 
 - (IBAction)postPhoto:(id)sender;
 

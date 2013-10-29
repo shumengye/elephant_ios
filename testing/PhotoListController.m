@@ -15,6 +15,9 @@
 
 @implementation PhotoListController
 
+// Storing image data returned from camera
+NSData *imageData;
+
 - (id)initWithCoder:(NSCoder *)aCoder {
     self = [super initWithCoder:aCoder];
     if (self) {
@@ -181,6 +184,22 @@
         pdvc.photoSenderName = selectedCell.usernameLabel.text;        
     }
     
+    if ([segue.identifier isEqualToString:@"showCamera"]) {
+    
+        UIImagePickerController *imagePicker = [segue destinationViewController];
+        
+        // Set source to the camera
+        imagePicker.sourceType =  UIImagePickerControllerSourceTypeCamera;
+        
+        // Delegate is self
+        imagePicker.delegate = self;
+    }
+    
+    if ([segue.identifier isEqualToString:@"showSendPhoto"]) {
+        SendPhotoViewController *controller = [segue destinationViewController];
+        controller.imageData = imageData;
+        controller.myDelegate = self;
+    }
 }
 
 
@@ -281,12 +300,10 @@
     [image drawInRect: CGRectMake(0, 0, 640, 960)];
     UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    imageData = UIImageJPEGRepresentation(smallImage, 0.8);
     
-    // Show image picker
-    SendPhotoViewController *sendPhoto = [[SendPhotoViewController alloc] init];
-    sendPhoto.imageData = UIImageJPEGRepresentation(smallImage, 0.8);
-    sendPhoto.myDelegate = self;
-    [self.navigationController presentViewController:sendPhoto animated:YES completion:NULL];
+    // Show final view for posting photo
+    [self performSegueWithIdentifier:@"showSendPhoto" sender:self];
 }
 
 - (void)sendPhotoViewControllerDismissed:(NSData *)imageData withQuestion:(NSString *)photoQuestion

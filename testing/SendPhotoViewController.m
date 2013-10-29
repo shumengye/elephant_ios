@@ -16,7 +16,7 @@
 
 @synthesize myDelegate = _myDelegate;
 @synthesize photoQuestion = _photoQuestion;
-@synthesize imageData = _imageData;
+@synthesize imageData;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,6 +30,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _questionTextField.delegate = self;
+    
+    self.photoImage.image = [[UIImage alloc] initWithData: imageData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -43,9 +47,9 @@
     _photoQuestion = self.questionTextField.text;
 
     // Delegate back image data and question
-    [_myDelegate sendPhotoViewControllerDismissed:_imageData withQuestion:_photoQuestion];
+    [_myDelegate sendPhotoViewControllerDismissed:imageData withQuestion:_photoQuestion];
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)close:(id)sender {
@@ -54,10 +58,67 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-    if (theTextField == self.questionTextField) {
-        [theTextField resignFirstResponder];
-    }
+    [theTextField resignFirstResponder];
     return YES;
 }
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField*)textField {
+    //CGPoint originPoint = postAnswerView.frame.origin;
+    NSLog(@"Text field focus");
+    
+    CGRect frame = _postQuestionView.frame;
+    frame.origin.y = frame.origin.y - 210;
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        _postQuestionView.frame = frame;
+    }];
+    
+    return TRUE;
+}
+
+-(void)textFieldDidEndEditing:(UITextField*)textField {
+    CGRect frame = _postQuestionView.frame;
+    frame.origin.y = frame.origin.y + 210;
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        _postQuestionView.frame = frame;
+    }];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    
+    if ([touch view] == self.view)
+        [self setMask:touch];
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    if ([touch view] == self.view)
+        [self setMask:touch];
+}
+
+- (void)setMask:(UITouch *)touch {
+    CGPoint location = [touch locationInView: [UIApplication sharedApplication].keyWindow];
+    
+    float loc2X = location.x - 20;
+    if (loc2X < 23)
+        loc2X = 23;
+    if (loc2X > 287)
+        loc2X = 287;
+    
+    float loc2Y = location.y - 80;
+    if (loc2Y < 60)
+        loc2Y = 60;
+    if (loc2Y > 430)
+        loc2Y = 430;
+    
+    CGPoint location2 = CGPointMake(loc2X, loc2Y);
+    [self.photoMask setCenter: location2];
+    
+    //NSLog(@"Touching: %@", NSStringFromCGPoint(location2));
+}
+
+
 
 @end

@@ -50,7 +50,6 @@
 		BBFB749817D5D82A000872EB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBFB749717D5D82A000872EB /* SystemConfiguration.framework */; };
 		BBFB74A717DC4148000872EB /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFB74A517DC4148000872EB /* PhotoViewController.m */; };
 		BBFB74C317DE2F27000872EB /* SendPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFB74C117DE2F26000872EB /* SendPhotoViewController.m */; };
-		BBFB74C417DE2F27000872EB /* SendPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBFB74C217DE2F27000872EB /* SendPhotoViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,7 +110,6 @@
 		BBFB74A517DC4148000872EB /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 		BBFB74C017DE2F26000872EB /* SendPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendPhotoViewController.h; sourceTree = "<group>"; };
 		BBFB74C117DE2F26000872EB /* SendPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendPhotoViewController.m; sourceTree = "<group>"; };
-		BBFB74C217DE2F27000872EB /* SendPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendPhotoViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,7 +194,6 @@
 				BB427C6B17E5CCBB0030575F /* PhotoTableCell.m */,
 				BBFB74C017DE2F26000872EB /* SendPhotoViewController.h */,
 				BBFB74C117DE2F26000872EB /* SendPhotoViewController.m */,
-				BBFB74C217DE2F27000872EB /* SendPhotoViewController.xib */,
 				BBFB74A417DC4148000872EB /* PhotoViewController.h */,
 				BBFB74A517DC4148000872EB /* PhotoViewController.m */,
 				BB427C6F17E762FD0030575F /* CommentTableCell.h */,
@@ -303,7 +300,6 @@
 				7FB9E013181C023900D828F1 /* thumbmask.png in Resources */,
 				7F558FF5181C8399000D3558 /* blur2.jpg in Resources */,
 				BBEEB0E517D29FE0009D2B3F /* MainStoryboard.storyboard in Resources */,
-				BBFB74C417DE2F27000872EB /* SendPhotoViewController.xib in Resources */,
 				7F558FF3181C8319000D3558 /* blur2@2x.jpg in Resources */,
 				7F55902E181ED371000D3558 /* mask2.png in Resources */,
 				7F55902A181EB9A4000D3558 /* ic_action_chat@2x.png in Resources */,
