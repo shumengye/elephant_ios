@@ -17,10 +17,8 @@
 @end
 
 @implementation PhotoViewController
-@synthesize photoId, photoQuestion, photoSenderName, commentNumberLabel, photoImageView, maskImageView;
-@synthesize commentSubView, photoUserLabel, questionLabel, commentFeedTableView, answerTextField, postAnswerView;
-@synthesize allComments;
 
+ 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -37,10 +35,19 @@
     
     commentSubViewIsOpen = NO;
     
+    // Show spinning activity indicator
+    UIActivityIndicatorView *loader = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    loader.center = self.view.center;
+    [self.view addSubview:loader];
+    [loader startAnimating];
+    
     // Load image file
     PFQuery *query = [PFQuery queryWithClassName:@"UserPhoto"];
     [query whereKey:@"objectId" equalTo:self.photoId];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        
+        [loader stopAnimating];
+        
         if (object) {
             
             PFFile *photoFile = object[@"imageFile"];
@@ -53,17 +60,30 @@
     }];
   
     // Photo info and comments
-    questionLabel.text = self.photoQuestion;
-    [questionLabel sizeToFit];
+    self.questionLabel.text = self.photoQuestion;
+    [self.questionLabel sizeToFit];
     
-    photoUserLabel.text = self.photoSenderName;
+    self.photoUserLabel.text = self.photoSenderName;
     
-    allComments= [[NSMutableArray alloc] init];
+    self.allComments= [[NSMutableArray alloc] init];
+    
     [self getComments];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+    if (self.isMovingFromParentViewController) {
+        
+        // because mask is bigger than main view, align mask with left border so it's not overflowing during back animation.
+        CGRect f = self.maskImageView.frame;
+        f.origin.x = 0;
+        self.maskImageView.frame = f;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,9 +92,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)postAnswer:(id)sender {
-    [self postComment:answerTextField.text byUser:[[PFUser currentUser] objectId] byUserWithName:[[PFUser currentUser] username]];
-    answerTextField.text = @"";    
+
+- (IBAction)postComment:(id)sender {
+    [self postComment:self.answerTextField.text byUser:[[PFUser currentUser] objectId] byUserWithName:[[PFUser currentUser] username]];
+    self.answerTextField.text = @"";
 }
 
 - (IBAction)handleTap:(id)sender {
@@ -83,10 +104,10 @@
 
 
 - (void)showCommentSubView {
-    CGPoint originPoint = commentSubView.frame.origin;
+    CGPoint originPoint = self.commentSubView.frame.origin;
     NSLog(@"Y is %@", NSStringFromCGPoint(originPoint));
     
-    CGRect frame = commentSubView.frame;
+    CGRect frame = self.commentSubView.frame;
     if (commentSubViewIsOpen == NO) {
         frame.origin.y = frame.origin.y - 270;
         commentSubViewIsOpen = YES;
@@ -97,7 +118,7 @@
     }
     
     [UIView animateWithDuration:0.25 animations:^{
-        commentSubView.frame = frame;
+        self.commentSubView.frame = frame;
     }];
 }
 
@@ -108,7 +129,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [allComments count];
+    return [self.allComments count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -121,17 +142,13 @@
         cell = [[CommentTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    PhotoComment *photoComment = (PhotoComment *)[allComments objectAtIndex:indexPath.row];
+    PhotoComment *photoComment = (PhotoComment *)[self.allComments objectAtIndex:indexPath.row];
     cell.userNameLabel.text = photoComment.userName;
     cell.commentLabel.text = photoComment.comment;
     
     return cell;
 }
 
-- (IBAction)close:(id)sender {
-    //[self dismissViewControllerAnimated:YES completion:nil];
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
@@ -168,7 +185,7 @@
 }
 
 - (void)getComments {
-    allComments = [[NSMutableArray alloc] init];;
+    self.allComments = [[NSMutableArray alloc] init];;
     
     PFQuery *query = [PFQuery queryWithClassName:@"PhotoComment"];
     PFObject *parentPhoto = [PFObject objectWithoutDataWithClassName:@"UserPhoto" objectId:self.photoId];
@@ -179,7 +196,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // Show number of total comments
-            commentNumberLabel.text = [NSString stringWithFormat:@"%d", objects.count];
+            self.commentNumberLabel.text = [NSString stringWithFormat:@"%d", objects.count];
             
             for (PFObject *eachObject in objects){
                 PFUser *user = (PFUser *)[eachObject objectForKey:@"user"];
@@ -189,7 +206,7 @@
                     commentSenderName:[eachObject objectForKey:@"username"]
                     commentPhotoID:self.photoId];
                
-                [allComments insertObject:newComment atIndex:0];
+                [self.allComments insertObject:newComment atIndex:0];
             }
         }
         [self.commentFeedTableView reloadData];
@@ -236,22 +253,22 @@
     //CGPoint originPoint = postAnswerView.frame.origin;
     NSLog(@"Text field focus");
     
-    CGRect frame = postAnswerView.frame;
+    CGRect frame = self.postAnswerView.frame;
     frame.origin.y = frame.origin.y - 210;
     
     [UIView animateWithDuration:0.25 animations:^{
-        postAnswerView.frame = frame;
+        self.postAnswerView.frame = frame;
     }];
     
     return TRUE;
 }
 
 -(void)textFieldDidEndEditing:(UITextField*)textField {
-    CGRect frame = postAnswerView.frame;
+    CGRect frame = self.postAnswerView.frame;
     frame.origin.y = frame.origin.y + 210;
     
     [UIView animateWithDuration:0.25 animations:^{
-        postAnswerView.frame = frame;
+        self.postAnswerView.frame = frame;
     }];
 }
 

@@ -38,12 +38,12 @@ UITextField *activeField;
     if (currentUser)
         [self onVerifiedUser];
     
-    _username.delegate = self;
-    _password.delegate = self;
+    self.username.delegate = self;
+    self.password.delegate = self;
     
     [self registerForKeyboardNotifications];
     
-    [_loginMessage sizeToFit];
+    [self.loginMessage sizeToFit];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -68,6 +68,13 @@ UITextField *activeField;
 - (IBAction)loginUser:(id)sender {
     [self.view endEditing:YES];
     
+    // Show spinning activity indicator
+    UIActivityIndicatorView *loader = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    loader.center = self.view.center;
+    [self.view addSubview:loader];
+    [loader startAnimating];
+     
+   
     NSString *username = self.username.text;
     NSString *password = self.password.text;
     
@@ -76,6 +83,9 @@ UITextField *activeField;
     
     [PFUser logInWithUsernameInBackground:username password:password
         block:^(PFUser *user, NSError *error) {
+            
+        [loader stopAnimating];
+            
         if (user) {
             // Login ok
             [self onVerifiedUser];
@@ -123,14 +133,14 @@ UITextField *activeField;
     CGRect bkgndRect = activeField.superview.frame;
     bkgndRect.size.height += kbSize.height;
     [activeField.superview setFrame:bkgndRect];
-    [_scrollView setContentOffset:CGPointMake(0.0, activeField.frame.origin.y-kbSize.height) animated:YES];
+    [self.scrollView setContentOffset:CGPointMake(0.0, activeField.frame.origin.y-kbSize.height) animated:YES];
 }
 
 
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
     // Scroll back to top
-    [_scrollView setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
+    [self.scrollView setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -139,7 +149,7 @@ UITextField *activeField;
     activeField = textField;
     
     // Reset error message
-    _loginMessage.text = @"";
+    self.loginMessage.text = @"";
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -149,10 +159,10 @@ UITextField *activeField;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     // Go to next field or hide keyboard
-    if (theTextField == _password)
+    if (theTextField == self.password)
         [theTextField resignFirstResponder];
-    else if (theTextField == _username)
-        [_password becomeFirstResponder];
+    else if (theTextField == self.username)
+        [self.password becomeFirstResponder];
 
     return YES;
 }

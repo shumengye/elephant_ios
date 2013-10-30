@@ -10,7 +10,6 @@
 
 @implementation PhotoComment
 
-@synthesize ID, comment, userID, userName, photoID;
 
 - (id)initWithCommentID:(NSString *)commentID commentText:(NSString *)commentText commentSenderID:(NSString *)senderID commentSenderName:(NSString *)senderName commentPhotoID:(NSString *)commentPhotoID {
     self = [super init];
@@ -19,7 +18,6 @@
         self.comment = commentText;
         self.userID = senderID;
         self.userName = senderName;
-        
     }
     
     return self;

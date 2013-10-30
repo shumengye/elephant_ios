@@ -30,7 +30,7 @@ UITextField *activeField;
 {
     [super viewDidLoad];
 	
-    _emailField.delegate = self;
+    self.emailField.delegate = self;
     
     [self registerForKeyboardNotifications];
 }
@@ -62,14 +62,14 @@ UITextField *activeField;
     CGRect bkgndRect = activeField.superview.frame;
     bkgndRect.size.height += kbSize.height;
     [activeField.superview setFrame:bkgndRect];
-    [_scrollView setContentOffset:CGPointMake(0.0, activeField.frame.origin.y-kbSize.height) animated:YES];
+    [self.scrollView setContentOffset:CGPointMake(0.0, activeField.frame.origin.y-kbSize.height) animated:YES];
 }
 
 
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
     // Scroll back to top
-    [_scrollView setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
+    [self.scrollView setContentOffset:CGPointMake(0.0, 0.0) animated:YES];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -78,7 +78,7 @@ UITextField *activeField;
     activeField = textField;
     
     // Reset error message
-    _resetMessage.text = @"";
+    self.resetMessage.text = @"";
    
 }
 
@@ -96,11 +96,11 @@ UITextField *activeField;
 
 - (IBAction)retrievePassword:(id)sender {
     // Hide keyboard
-    [_emailField resignFirstResponder];
+    [self.emailField resignFirstResponder];
     
     // Send password retrieval email
     [PFUser requestPasswordResetForEmailInBackground:_emailField.text];
-    _resetMessage.text = @"Please follow the instructions sent to your email";
+    self.resetMessage.text = @"Please follow the instructions sent to your email";
 }
 
 @end

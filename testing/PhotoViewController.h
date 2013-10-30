@@ -30,11 +30,10 @@
 @property (weak, nonatomic) IBOutlet UITableView *commentFeedTableView;
 @property (weak, nonatomic) IBOutlet UIView *postAnswerView;
 
-- (IBAction)postAnswer:(id)sender;
+- (IBAction)postComment:(id)sender;
 
 - (IBAction)handleTap:(id)sender;
 
-- (IBAction)close:(id)sender;
 
 
 @end

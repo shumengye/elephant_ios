@@ -14,9 +14,6 @@
 
 @implementation SendPhotoViewController
 
-@synthesize myDelegate = _myDelegate;
-@synthesize photoQuestion = _photoQuestion;
-@synthesize imageData;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,9 +28,9 @@
 {
     [super viewDidLoad];
     
-    _questionTextField.delegate = self;
+    self.questionTextField.delegate = self;
     
-    self.photoImage.image = [[UIImage alloc] initWithData: imageData];
+    self.photoImage.image = [[UIImage alloc] initWithData: self.imageData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,7 +44,7 @@
     _photoQuestion = self.questionTextField.text;
 
     // Delegate back image data and question
-    [_myDelegate sendPhotoViewControllerDismissed:imageData withQuestion:_photoQuestion];
+    [self.myDelegate sendPhotoViewControllerDismissed:self.imageData withQuestion:self.photoQuestion];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -70,7 +67,7 @@
     frame.origin.y = frame.origin.y - 210;
     
     [UIView animateWithDuration:0.25 animations:^{
-        _postQuestionView.frame = frame;
+        self.postQuestionView.frame = frame;
     }];
     
     return TRUE;
@@ -81,7 +78,7 @@
     frame.origin.y = frame.origin.y + 210;
     
     [UIView animateWithDuration:0.25 animations:^{
-        _postQuestionView.frame = frame;
+        self.postQuestionView.frame = frame;
     }];
 }
 
